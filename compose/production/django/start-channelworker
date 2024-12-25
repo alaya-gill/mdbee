@@ -1,0 +1,1 @@
+python /app/manage.py runworker 'notification-send'

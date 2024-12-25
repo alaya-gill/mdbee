@@ -1,0 +1,172 @@
+{% load reporting_extras %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User & Contact Report</title>
+  <!--  <link rel="stylesheet" type="text/css" href="{% static 'css/table.css' %}">-->
+</head>
+<style>
+
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Pacifico|Source+Sans+Pro:400,700");
+@page {
+    margin: 1.5cm 1cm;
+    @bottom-right{
+        content: "Page " counter(page) " of " counter(pages);
+    }
+}
+	html {
+		color: #000000;
+		font-family: Source Sans Pro;
+		font-size: 9pt;
+		line-height: 1.6;
+	}
+	html body {
+		margin: 0;
+	}
+	html h1 {
+		font-size: 14pt;
+		color: #2c92c8;
+		margin: 0;
+	}
+	html table {
+		border-collapse: collapse;
+		width: 100%;
+
+	}
+	html table th {
+		border-bottom: 1px solid #000;
+		color: #000000;
+		background-color: #2c92c8;
+		font-size: 10pt;
+		font-weight: 400;
+		padding-bottom: .25cm;
+		text-transform: uppercase;
+	}
+	html table td {
+		padding-top: 3mm;
+	}
+	html table th,
+	html table td {
+		text-align: center;
+		vertical-align: top;
+	}
+	html table th:first-of-type,
+	html table td:first-of-type {
+		text-align: left;
+		padding-left: .25cm;
+	}
+	html table th:last-of-type,
+	html table td:last-of-type {
+		text-align: right;
+		padding-right: .25cm;
+	}
+	.main{
+	  border: 1px solid #000;
+	}
+	header
+  {
+    position        : fixed;
+    left           : 0;
+    right: 2px;
+    top          : -10mm;
+    height          : 10mm;
+    text-align      : center;
+    font-size       : 10px;
+    border: 1px solid #000;
+    border-bottom: none;
+    width: 100%;
+    margin: 0 auto;
+  }
+  header img:not(#logo) {
+    position: absolute;
+    left: 0;
+    top: -5px;
+    max-width: 100px;
+    padding: 10px;
+  }
+  #logo{
+    position: absolute;
+    right: 10px;
+    top: -5px;
+    max-width: 100px;
+    padding: 10px;
+  }
+  .case-detail{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    width: 300px;
+  }
+  .case-detail p {
+    display: inline-block;
+    width: 50%;
+    margin: 0 2px;
+  }
+	footer
+  {
+    position        : fixed;
+    left           : 0;
+    right: 2px;
+    bottom          : -10mm;
+    height          : 10mm;
+    width: 100%;
+    text-align      : right;
+    font-size       : 10px;
+    border: 1px solid #000;
+    border-top: none;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+
+</style>
+<body>
+<header>
+  {% comment %} <img src="file:///static/images/logos/synergy_cloud_blue.png" alt="Dental Bee"> {% endcomment %}
+  {% if logo %}
+  <img id="logo" src="{{logo}}" alt="Account Logo">
+  {% endif %}
+  <h1>
+    Patient Event Report
+  </h1>
+  <div class="case-detail">
+    <p> Patient Name: {{patient_name}}</p>
+    <p> Serial Number: {{device_serial_number}}</p>
+  </div>
+
+</header>
+<div class="main">
+  <table>
+  <thead>
+
+  {% for k,v in columns.items %}
+  <th>
+    {{ k}}
+  </th>
+  {% endfor %}
+  </thead>
+  <tbody>
+  {% for event in events %}
+  <tr>
+    {% for k,v in columns.items %}
+    <td>{{ event|get_item:v|default_if_none:""}}</td>
+    {% endfor %}
+
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<footer>
+
+  <p>Printed Date {% now "DATE_FORMAT" %}</p>
+
+</footer>
+</body>
+
+
+</html>

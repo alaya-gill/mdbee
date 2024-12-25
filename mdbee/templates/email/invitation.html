@@ -1,0 +1,26 @@
+{% load i18n %}
+
+{% block subject %}
+{% blocktrans %}Contact invitation for {{ site_name }}{% endblocktrans %}
+{% endblock subject %}
+
+{% block text_body %}
+{% blocktrans %}You have been invited to signup as a contact in Dental Bee. To register please visit this link: {{ site_name }}.{% endblocktrans %}
+
+{{ protocol }}://{{ domain }}/{{ url }}
+
+{% trans "Thanks for using our site!" %}
+
+{% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+{% endblock text_body %}
+
+{% block html_body %}
+<p>{% blocktrans %}You have been invited to signup as a contact in Dental Bee. To register please visit this link: {{ site_name }}.{% endblocktrans %}</p>
+
+<a href="{{ protocol }}://{{ domain }}/{{ url }}">{{ protocol }}://{{ domain }}/{{ url }}</a>
+
+<p>{% trans "Thanks for using our site!" %}</p>
+
+<p>{% blocktrans %}The {{ site_name }} team{% endblocktrans %}</p>
+{% endblock html_body %}
+

@@ -1,0 +1,67 @@
+version: '3'
+
+volumes:
+  qa_postgres_data: {}
+  qa_postgres_data_backups: {}
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/qa/django/Dockerfile
+    image: mdbee_qa_django
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - ./.envs/.qa/.django
+      - ./.envs/.qa/.postgres
+    command: /start
+    expose:
+      - 8000
+
+  channelworker:
+    <<: *django
+    image: mdbee_qa_channelworker
+    command: /start-channelworker
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/qa/postgres/Dockerfile
+    image: mdbee_qa_postgres
+    volumes:
+      - qa_postgres_data:/var/lib/postgresql/data
+      - qa_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.qa/.postgres
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:5.0
+
+  celeryworker:
+    <<: *django
+    image: mdbee_qa_celeryworker
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    image: mdbee_qa_celerybeat
+    command: /start-celerybeat
+
+  flower:
+    <<: *django
+    image: mdbee_qa_flower
+    ports:
+      - "5555:5555"
+    command: /start-flower
+
+  highchart:
+    build:
+      context: .
+      dockerfile: ./compose/qa/highchart-export-server/Dockerfile
+    image: highchart-export-server
+    ports:
+      - "8889:8080"

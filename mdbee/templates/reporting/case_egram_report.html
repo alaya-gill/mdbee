@@ -1,0 +1,472 @@
+{% load reporting_extras %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Case Reports</title>
+</head>
+<style>
+
+    @charset "UTF-8";
+    @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
+  
+    @page {
+      size: {{page_size}} landscape;
+      margin: 1.5cm 1cm;
+      @bottom-right {
+        content: "Page " counter(page) " of " counter(pages);
+      }
+    }
+  
+    @page rotated {
+        size: {{page_size}} landscape;
+       margin: 1.5cm 1cm;
+      @bottom-right {
+        content: "Page " counter(page) " of " counter(pages);
+        
+      }
+    }
+  
+    html {
+      color: #000000;
+      font-family: 'Source Sans Pro', 'Noto Sans', 'sans-serif';
+      font-size: {{page_font_size}};
+      line-height: 1.6;
+    }
+  
+    html body {
+      margin: 0;
+    }
+  
+    html h1 {
+      font-size: 15pt;
+      color: #2c92c8;
+      margin: 0;
+    }
+  
+    html h2 {
+      font-size: 14pt;
+      color: #2c92c8;
+      margin: 0;
+      font-weight: bold;
+      text-align: center;
+    }
+  
+    html table {
+      border-collapse: collapse;
+      width: 100%;
+  
+    }
+  
+    html table th {
+      border-bottom: 1px solid #000;
+      color: #000000;
+      background-color: #2c92c8;
+      font-size: 10pt;
+      font-weight: 400;
+      padding-bottom: .25cm;
+      text-transform: uppercase;
+    }
+  
+    html table td {
+      padding-top: 3mm;
+    }
+  
+    html table th,
+    html table td {
+      text-align: center;
+      vertical-align: top;
+    }
+  
+    html table th:first-of-type,
+    html table td:first-of-type {
+      text-align: left;
+      padding-left: .25cm;
+    }
+  
+    html table th:last-of-type,
+    html table td:last-of-type {
+      text-align: right;
+      padding-right: .25cm;
+    }
+  
+    .main {
+      border: 1px solid #000;
+    }
+  
+    header {
+      position: fixed;
+      left: 2px;
+      right: 2px;
+      top: -8mm;
+      height: 10mm;
+      text-align: center;
+      font-size: 10px;
+    {#border: 1px solid #000;#}{#border-bottom: none;#} width: 100%;
+      margin: 0 auto;
+    }
+  
+    header img:not(#logo) {
+      position: absolute;
+      left: 0;
+      top: -5px;
+      max-width: 100px;
+      padding: 10px;
+    }
+  
+    #logo{
+      position: absolute;
+      right: 10px;
+      top: -5px;
+      max-width: 100px;
+      padding: 10px;
+    }
+  
+    .case-detail {
+      position: absolute;
+      right: 130px;
+      top: 5px;
+      width: 300px;
+    }
+  
+    .case-detail p {
+      display: inline-block;
+      width: 50%;
+      margin: 0 2px;
+    }
+  
+    footer {
+      position: fixed;
+      left: 0;
+      right: 2px;
+      bottom: -3mm;
+      height: 3mm;
+      width: 100%;
+      text-align: right;
+      font-size: 10px;
+    {#border: 1px solid #000;#}{#border-top: none;#} width: 100%;
+      margin: 0 auto;
+    }
+  
+    hr {
+      margin: 20px auto;
+    }
+  
+    .general-table td span {
+      display: block;
+      padding: 5px;
+    }
+  
+    h3 {
+      font-size: 18pt;
+      margin: 10px auto;
+      background-color: #2c92c8;
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+  
+    .main-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+  
+    .td-pb {
+      padding-bottom: 3mm;
+    }
+  
+    .bg-grey {
+      max-width: 100%;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border: 3px solid #ccc;
+      margin-bottom: 10px;
+    }
+  
+    .text-heading {
+      max-width: 100%;
+      padding: 10px;
+      font-size: 13pt;
+      font-weight: bold;
+      text-align: center;
+      color: #2c92c8;
+    }
+  
+    .bg-grey1 {
+      max-width: 100%;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border: 3px solid #ccc;
+      margin-bottom: 10px;
+    }
+  
+    .bg-grey.text-area {
+      max-width: 100%;
+    }
+  
+    .case-report-section h3 {
+      text-align: center;
+    }
+  
+    .case-report-section .bg-grey {
+      margin: 0 auto 10px;
+      max-width: 100%;
+      min-width: 150px;
+      text-align: center;
+    }
+  
+    .case-no {
+      text-align: center;
+    }
+  
+    .case-no > span,
+    .case-no .bg-grey {
+      display: inline-block;
+      margin-bottom: 0;
+      margin-left: 0;
+      vertical-align: middle;
+    }
+  
+    .case-no > span {
+      margin-right: 10px;
+      text-align: left;
+      min-width: 240px;
+    }
+  
+    .case-report-section .bg-grey + span {
+      min-width: inherit;
+    }
+  
+    .clearfix::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+  
+    .section-flex {
+      display: flex;
+      align-items: center;
+    }
+  
+    .section-flex > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 0 0 50%;
+    }
+  
+    .section-flex > div.bg-grey {
+      width: 100%;
+    }
+  
+    .section-flex > div.bg-grey + span {
+      min-width: inherit;
+    }
+  
+    .mt-20 {
+      margin-top: 20px;
+    }
+  
+    .mt-30 {
+      margin-top: 30px;
+    }
+  
+    .mb-20 {
+      margin-bottom: 20px;
+    }
+  
+    .mb-30 {
+      margin-bottom: 30px;
+    }
+  
+    .my-10 {
+      margin: 10px 0;
+    }
+  
+    .my-15 {
+      margin: 15px 0;
+    }
+  
+    .my-25 {
+      margin: 25px 0;
+    }
+  
+    .text-left {
+      text-align: left;
+    }
+  
+    .text-right {
+      text-align: right;
+    }
+  
+  
+    {% comment %}
+      <p> Equipment Report <p>
+     {% endcomment %}
+  
+    .report-wrapper {
+      margin: 10px 0;
+      overflow: auto;
+    }
+  
+    .report-wrapper::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+  
+    .report-section {
+      border: 1px solid #444;
+      width: 33%;
+      float: left;
+    }
+  
+    .report-section ul {
+      overflow: auto;
+    }
+  
+    .report-section ul::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+  
+  
+    .report-section ul li {
+      padding: 2mm 2mm;
+      width: 50%;
+      float: left;
+      box-sizing: border-box;
+    }
+  
+    .report-section ul li:nth-of-type(even) {
+      text-align: right;
+    }
+  
+    .report-section ul,
+    li {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+  
+    .report-section h4 {
+      text-align: left;
+      padding: 2mm 4mm;
+      color: #000;
+      margin: 0;
+      background-color: #2c92c8;
+      font-size: 10pt;
+    }
+  
+    .report-section h3 {
+      text-align: left;
+      padding: 2mm 4mm;
+      color: #000;
+      margin: 0;
+      background-color: #2c92c8;
+      font-size: 11pt;
+    }
+  
+    .eqp-table tbody {
+      border-right: 1px solid black;
+      border-bottom: 1px solid black;
+      border-left: 0px solid black;
+    }
+  
+    eqp-table td:nth-child(4) {
+      border-right: 1px solid black;
+  }
+  
+    .egram{
+      page: rotated
+    }
+  
+    .egram p{
+      font-size: 8pt;
+      text-align: center;
+      margin-bottom: 0cm;
+    }
+  
+    .egram-date{
+      font-size: 8pt;
+      text-align: left;
+      margin-bottom: 0cm;
+      margin-top: 0cm;
+      float:left;
+      width:50%
+    }
+  
+    .resolution{
+      font-size: 8pt;
+      text-align: right;
+      margin-bottom: 0cm;
+      margin-top: 0cm;
+      float:right;
+      width:50%
+    }
+  
+    .egram-image{
+      width: 100%;
+      margin-top: 0.5cm;
+      bottom: 0;
+    }
+  
+   .patient-name{
+    text-align: center;
+   }
+  
+   .top-10{
+     top: 10mm;
+   }
+
+   .comment {
+    margin-bottom: 0; /* Adjust this value to reduce space */
+    padding: 0;         /* Optionally remove any padding */
+    }
+  
+  
+  </style>
+<body>
+    <header>
+      {% comment %} <img src="file:///static/images/logos/synergy_cloud_blue.png" alt="Dental Bee"> {% endcomment %}
+      {% if logo %}
+      <img id="logo" src="{{logo}}" alt="Account Logo">
+      {% endif %}
+      <div style="page-break-before: always;">
+        <p> Case Number: {{ case_number }}</p>
+      </div>
+    
+    </header>
+
+{% if egram %}
+<!-- <div style="page-break-before: always;"></div> -->
+{% if egrams %}
+<div class="egram">
+
+
+  {% for eg in egrams %}
+  <h2>Egram {{eg.current_event_index}} {{eg.event_date_time}}</h2>
+  <p> {{ settings }}</p>
+  {% for comment in eg.comments %}
+    <div class="comment">{{ forloop.counter }}) {{ comment }}</div>
+  {% endfor %}
+
+  <div style="page-break-before: avoid;"></div>
+  <img class="egram-image" src="data:image;base64,{{eg.img}}" alt="Dental Bee3">
+  <p class="egram-date">EGRAM Date: {{eg.start_date_time}}</p>
+  <p class="resolution">{{eg.resolution}} mm/s</p>
+  <div style="page-break-after: always;"></div>
+  {% endfor %}
+</div>
+{% else %}
+<h2> No Egrams exist within the Date Range</h2>
+{% endif %}
+{% endif %}
+<footer >
+  <p>Printed Date {% now "DATE_FORMAT" %}</p>
+</footer>
+
+</body>
+
+</html>

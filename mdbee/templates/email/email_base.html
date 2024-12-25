@@ -1,0 +1,62 @@
+{% load i18n %}
+
+{% block subject %}
+{{ subject }}
+{% endblock subject %}
+
+{% block text_body %}
+
+{{message}}
+
+{% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+{% endblock text_body %}
+
+{% block html_body %}
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+			<td style="padding: 10px 0 30px 0;">
+				<table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc; border-collapse: collapse;">
+					<tr>
+						<td align="center" style="padding: 40px 0 30px 0; color: #fff; font-size: 28px; font-weight: bold; font-family: Roboto, sans-serif; background-image: linear-gradient(to right, #2c92c8, #3d5eab);">
+              <p>Dental Bee</p>
+						</td>
+					</tr>
+					<tr>
+						<td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+							<table border="0" cellpadding="0" cellspacing="0" width="100%">
+								<tr>
+									<td style="color: #153643; font-family: Roboto, sans-serif; font-size: 24px;">
+										<b>{{subject | safe}}</b>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding: 20px 0 30px 0; color: #153643; font-family: Roboto, sans-serif; font-size: 16px; line-height: 20px;">
+										<p>
+                      {{message | safe}}
+                    </p>
+									</td>
+								</tr>
+
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td style="padding: 30px 30px 30px 30px; background-image: linear-gradient(to right, #2c92c8, #3d5eab);">
+							<table border="0" cellpadding="0" cellspacing="0" width="100%">
+								<tr>
+									<td style="color: #ffffff; font-family: Roboto, sans-serif; font-size: 14px;" width="90%">
+										&reg; MDBee {{year}}<br/>
+
+                                    </td>
+                                    <td style="color: #ffffff; font-family: Roboto, sans-serif; font-size: 14px;">
+										<a href="#" style="color: #ffffff;"><font color="#ffffff">Unsubscribe</font></a>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+{% endblock html_body %}

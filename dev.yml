@@ -1,0 +1,70 @@
+version: '3'
+
+volumes:
+  production_postgres_data: {}
+  production_postgres_data_backups: {}
+  production_traefik: {}
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/dev/django/Dockerfile
+    image: mdbee_production_django
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - ./.envs/.dev/.django
+      - ./.envs/.dev/.postgres
+    command: /start
+    expose:
+      - 8000
+
+  channelworker:
+    <<: *django
+    image: mdbee_production_channelworker
+    command: /start-channelworker
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: mdbee_production_postgres
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data
+      - production_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.dev/.postgres
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:5.0
+    ports:
+      - 6379
+
+  celeryworker:
+    <<: *django
+    image: mdbee_production_celeryworker
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    image: mdbee_production_celerybeat
+    command: /start-celerybeat
+
+  flower:
+    <<: *django
+    image: mdbee_production_flower
+    ports:
+      - "5555:5555"
+    command: /start-flower
+
+  highchart:
+    build:
+      context: .
+      dockerfile: ./compose/dev/highchart-export-server/Dockerfile
+    image: highchart-export-server
+    ports:
+      - "8889:8080"
