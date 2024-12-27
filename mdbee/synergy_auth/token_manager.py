@@ -138,7 +138,7 @@ class CodeTokenManager(object):
         :rtype: dict[str, str|int]
         """
         now = int(time.time())
-        expiration_time = django_settings.SYNERGY_CLOUD.get('REMEMBER_THIS_DEVICE_EXPIRATION_TIME', timedelta(days=365))
+        expiration_time = django_settings.MDBEE.get('REMEMBER_THIS_DEVICE_EXPIRATION_TIME', timedelta(days=365))
         expiration_seconds = int(expiration_time.total_seconds())
         return {
             'user_id': user.pk,

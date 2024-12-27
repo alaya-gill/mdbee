@@ -20,6 +20,7 @@ urlpatterns = [
     # User management
     path("api/web/", include("mdbee.users.urls", namespace="users")),
     path("api/web/utils/", include("mdbee.utils.urls", namespace="utils")),
+    path("api/web/notes/", include("mdbee.notes.urls", namespace="notes")),
     path('api/token/refresh/', refresh_auth_token, name='token_refresh'),
     path("api/code-token", user_obtain_code_token, name="user-obtain-code-token"),
     path("api/token", obtain_auth_token, name="obtain-auth-token"),

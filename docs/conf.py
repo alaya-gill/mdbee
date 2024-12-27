@@ -1,4 +1,4 @@
-# Django Synergy documentation build configuration file, created by
+# MDBEE documentation build configuration file, created by
 # sphinx-quickstart.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -39,7 +39,7 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "Django Synergy"
+project = "MDBEE"
 copyright = """2019, MDBee"""
 
 # The version info for the project you're documenting, acts as replacement for
@@ -183,7 +183,7 @@ latex_documents = [
     (
         "index",
         "mdbee.tex",
-        "Django Synergy Documentation",
+        "MDBEE Documentation",
         """MDBee""",
         "manual",
     )
@@ -218,7 +218,7 @@ man_pages = [
     (
         "index",
         "mdbee",
-        "Django Synergy Documentation",
+        "MDBEE Documentation",
         ["""MDBee"""],
         1,
     )
@@ -237,9 +237,9 @@ texinfo_documents = [
     (
         "index",
         "mdbee",
-        "Django Synergy Documentation",
+        "MDBEE Documentation",
         """MDBee""",
-        "Django Synergy",
+        "MDBEE",
         """Dental Bee Django Backend""",
         "Miscellaneous",
     )

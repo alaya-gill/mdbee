@@ -114,6 +114,7 @@ LOCAL_APPS = [
     "mdbee.users.apps.UsersConfig",
     "mdbee.utils.apps.UtilsConfig",
     "mdbee.synergy_auth.apps.SynergyAuthConfig",
+    "mdbee.notes.apps.NotesConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -448,7 +449,7 @@ JWT2FA_AUTH = {
 
 NON_FIELD_ERRORS_KEY = 'messages'
 
-SYNERGY_CLOUD = {
+MDBEE = {
     'REMEMBER_THIS_DEVICE_EXPIRATION_TIME': timedelta(days=365)
 }
 

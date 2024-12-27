@@ -43,10 +43,15 @@ class UserViewSet(BaseViewset):
         "default": UserSerializer,
         "create_system_user": SystemUserCreateSerializer,
         'reset_password_confirm': PasswordResetConfirmRetypeSerializer,
+        'logout': LogoutSerializer,
     }
     token_generator = default_token_generator
     
     permission_classes = [IsAuthenticated]
+    
+    def filter_queryset(self, queryset):
+        queryset = queryset.filter(is_superuser=False)
+        return super().filter_queryset(queryset)
     
     def create_system_user_notification(self, request, user_to_create, *args, **kwargs):
         context = {"user": user_to_create}
@@ -73,10 +78,6 @@ class UserViewSet(BaseViewset):
         # Sending Email
 
         self.create_system_user_notification(request, user_to_create)
-        # if settings.SEND_ACTIVATION_EMAIL:
-        #     settings.EMAIL.activation(self.request, context).send(to)
-        # elif settings.SEND_CONFIRMATION_EMAIL:
-        #     settings.EMAIL.confirmation(self.request, context).send(to)
 
         return Response(status=status.HTTP_201_CREATED,
                         data={
@@ -104,3 +105,17 @@ class UserViewSet(BaseViewset):
                 self.request, context).send(to)
         return Response(status=status.HTTP_200_OK,
                         data={"success": True, "status_code": 200, "message": _("Password reset")})
+
+    @action(["post"], detail=False)
+    def logout(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user_id = serializer.context.get('request').user.id
+        cache.expire(user_id, timeout=0)
+
+        response = Response(status=status.HTTP_200_OK,
+                            data={"success": True,
+                                  "status_code": 200,
+                                  "message": _("User Logged Out"), })
+        response.delete_cookie(api_settings.JWT_AUTH_COOKIE)
+        return response

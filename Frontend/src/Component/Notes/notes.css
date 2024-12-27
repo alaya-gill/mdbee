@@ -1,0 +1,368 @@
+/* Reset and Basic Styles */
+
+/* Main container */
+.main {
+  display: flex;
+  justify-content: space-between; /* Equal space between items */
+  align-items: center; /* Center vertically */
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 8px;
+  padding: 20px;
+  gap: 50px; /* Reduced gap for better scaling */
+  margin-top: 40px;
+}
+
+/* Left content */
+.left-content {
+  flex: 1;
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+.left-content h1 {
+  font-size: 50px; /* Adjusted for responsiveness */
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.left-content p {
+  font-size: 18px; /* Adjusted for better readability on smaller screens */
+  color: #a07afb;
+}
+
+.lf-p1 {
+  color: #0310c6;
+}
+
+/* Login container */
+.login-container {
+  flex: 1;
+  padding: 20px;
+}
+
+.login-form {
+  padding: 25px;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-form h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 22px; /* Slightly smaller for smaller screens */
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  font-size: 14px;
+}
+
+.form-group input {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  background-color: #f6f7fe;
+}
+
+.form-group input:focus {
+  border-color: #6b73f0;
+}
+
+.login-button {
+  background-color: #6b73f0;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #555ccd;
+}
+
+.signup-text {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.signup-text a {
+  color: #6b73f0;
+  text-decoration: none;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column; /* Stack sections vertically */
+    padding: 15px;
+    gap: 30px;
+  }
+
+  .left-content {
+    margin-bottom: 20px;
+  }
+
+  .left-content h1 {
+    font-size: 40px; /* Adjusted for tablet screens */
+  }
+
+  .left-content p {
+    font-size: 16px;
+  }
+
+  .login-container {
+    width: 100%; /* Full width for smaller screens */
+  }
+
+  .login-form {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 10px;
+    gap: 20px;
+  }
+
+  .left-content h1 {
+    font-size: 30px; /* Smaller font for mobile screens */
+  }
+
+  .left-content p {
+    font-size: 14px;
+  }
+
+  .login-form {
+    padding: 15px;
+  }
+
+  .login-form h2 {
+    font-size: 20px;
+  }
+
+  .form-group input {
+    font-size: 14px; /* Adjusted input font size for better usability */
+    padding: 8px;
+    width: 90%;
+  }
+
+  .login-button {
+    font-size: 14px;
+  }
+}
+
+
+/* UserList.css */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-table th,
+.user-table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.user-table thead {
+  background-color: #6b73f0;
+  color: white;
+}
+
+.user-table tbody tr:nth-child(odd) {
+  background-color: #b9c3f4;
+}
+
+.user-table tbody tr:nth-child(even) {
+  background-color: #a07afb;
+}
+
+.user-table tbody tr:hover {
+  background-color: #6b73f0;
+  color: white;
+}
+
+.user-table th {
+  background-color: #6b73f0;
+  color: white;
+}
+
+.notes-header {
+  display: flex; /* Flexbox to align items horizontally */
+  justify-content: space-between; /* Space between heading and button */
+  align-items: center; /* Center items vertically */
+  margin-bottom: 20px; /* Add some spacing below the header */
+}
+
+.notes-title {
+  font-size: 1.5rem; /* Adjust heading size as needed */
+  font-weight: bold; /* Make it bold */
+  margin: 0; /* Remove default margin */
+}
+
+.add-note-button {
+  padding: 8px 12px; /* Adjust padding for a nice button size */
+  font-size: 1rem; /* Adjust font size */
+  background-color: #a07afb; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.add-note-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+@media (max-width: 768px) {
+  .notes-header {
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align items to the left */
+  }
+
+  .add-note-button {
+    margin-top: 10px; /* Add spacing between elements */
+    align-self: flex-end; /* Keep the button aligned to the right */
+  }
+} 
+
+/* Modal Overlay */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-button,
+.save-button {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel-button {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.cancel-button:hover {
+  background-color: #e0e0e0;
+}
+
+.save-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #0056b3;
+}
+
+/* Icon Styling */
+.action-icons {
+  display: flex;
+  gap: 10px;
+  justify-content: center; /* Align icons in the center */
+}
+
+.icon {
+  font-size: 1.2rem; /* Adjust icon size */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.edit-icon {
+  color: #007bff; /* Blue color for edit */
+}
+
+.edit-icon:hover {
+  color: #0056b3; /* Darker blue on hover */
+}
+
+.delete-icon {
+  color: #dc3545; /* Red color for delete */
+}
+
+.delete-icon:hover {
+  color: #a71d2a; /* Darker red on hover */
+}
