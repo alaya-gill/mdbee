@@ -1,7 +1,7 @@
 MDBEE
 ===============
 
-MDBEE environment:
+MDBEE clone:
 
 * `git clone https://github.com/alaya-gill/mdbee.git`
 
@@ -13,22 +13,22 @@ Dev Setup Notes
      Pyenv managing multiple python versions: https://realpython.com/intro-to-pyenv/
 
  1.1 Redis
-     For UBUNTU
-`sudo apt update
-sudo apt install redis-server`;
+    For UBUNTU
+    * `sudo apt update`
+    * `sudo apt install redis-server`;
  1.2 Confirm redis is running 
-`sudo systemctl status redis-server`;
+    * `sudo systemctl status redis-server`;
 
      For MacOS
-`brew update
-brew install redis`;
+    * `brew update`
+    * `brew install redis`;
  1.3 Start redis 
-`brew services start redis`;
+    * `brew services start redis`;
 
 
  2. Setup postgresql and createsuperuser
  Add Database configurations in config/settings/base.py
-`DATABASES = {
+* DATABASES = {
 
     'default': {
 
@@ -46,56 +46,52 @@ brew install redis`;
 
     }
 
-}`
+}
 
 Go to directory where manage.oy file is located and run in terminal:
-`./manage.py createsuperuser`
+    * `./manage.py createsuperuser`
 
 Make sure to activate and put is_staff=True superuser using localhost:8000/admin url
 
- 3. Create and activate virtualenv outside the repository folder
-`pyenv install 3.8.19`
-`pyenv local 3.8.19`
-`pyenv virtualenv 3.8.19 <environment_name>`
+3. Create and activate virtualenv outside the repository folder
+    * `pyenv install 3.8.19`
+    * `pyenv local 3.8.19`
+    * `pyenv virtualenv 3.8.19 <environment_name>`
 
-# Load pyenv path
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+    # Load pyenv path
+    export PATH="$HOME/.pyenv/bin:$PATH"
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
 
-`pyenv activate <environment_name>`
+* `pyenv activate <environment_name>`
 
-`
+4. Install requirements
+    * `pip install -r requirements/local.txt`
 
- 4. Install requirements
-`pip install -r requirements/local.txt`
-
- 5. Run migrations
-`./manage.py migrate`
+5. Run migrations
+    * `./manage.py migrate`
 
  6. Run server  
- 
- `./manage.py runserver`
+ *  `./manage.py runserver`
  
 
 7. Populate initial database
-
-`./manage.py populate_countries`
+    * `./manage.py populate_countries`
 
 
 Basic Commands
 --------------
 
 1. Create Migrations
-`./manage.py makemigrations <app_name>`
+ * `./manage.py makemigrations <app_name>`
 
 2. Run Migrations
-`./manage.py migrate <app_name>`
+    * `./manage.py migrate <app_name>`
 
 3. Django Shell or Shell Plus
-`./manage.py shell`
-`./manage.py shell_plus`
+    * `./manage.py shell`
+    * `./manage.py shell_plus`
 
 Frontend Setup (Vite + Reactjs)
 ------------------
@@ -104,11 +100,11 @@ Go to folder Frontend (cd Frontend)
 
 1. Install Dependencies
 
-1.1 `npm install``
+    * `npm install``
 
 2. Development
 
-2.2 `npm run dev`
+    * `npm run dev`
 The application will be available at http://localhost:5173.
 
 
