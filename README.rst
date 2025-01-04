@@ -3,7 +3,8 @@ MDBEE
 
 MDBEE environment:
 
-``` git clone https://github.com/alaya-gill/mdbee.git ```
+* ` git clone https://github.com/alaya-gill/mdbee.git `
+
 Dev Setup Notes
 ---------------
 
@@ -26,7 +27,7 @@ brew install redis```;
 
 
  2. Setup postgresql and createsuperuser
- Add Database configurations
+ Add Database configurations in config/settings/base.py
 ```DATABASES = {
 
     'default': {
